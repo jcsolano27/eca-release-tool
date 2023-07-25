@@ -1,8 +1,10 @@
 import os
 import shutil
+import time
 from zipfile import ZipFile
 import re
 import sys
+import datetime
 
 msapp_paths = ['', 'Components', 'Controls', 'References', 'Resources']
 
@@ -68,6 +70,7 @@ def msapp_replace(file_name, find, replace, exclude=[]):
             if file[-5:] == '.json' and file not in exclude:
                 full_file_path = f'{full_path}/{file}'
                 replace_file(full_file_path, find, replace)
+    print(f"Replace process end time: {datetime.datetime.now()}")
 
 def full_replace(path, msapp_file, app_folder):
     with open('MappingFiles/Values.csv', 'r') as v:
@@ -166,7 +169,10 @@ def main():
         dynamic_replace(msapp_file)
 
         if value == 99:
+            time.sleep(1)
+            print(f"Compress process start time: {datetime.datetime.now()}")
             os.system('PowerShell\\compress.bat')
+            print(f"Compress process end time: {datetime.datetime.now()}")
 
     if value == 2 or value == 99:
         print("Started compress process")

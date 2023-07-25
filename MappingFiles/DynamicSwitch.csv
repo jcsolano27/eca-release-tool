@@ -1,0 +1,9 @@
+﻿Environment,Find,Replace
+DEV,ECA-Portal-Projects-Dev,ECA-Portal-Projects-Prod
+DEV,ECA-Portal-Requests-Dev,ECA-Portal-Requests-Prod
+DEV,ECA-Portal-App-Security-Dev,ECA-Portal-App-Security-Prod
+DEV,ECA-Portal-Data-Sources-Dev,ECA-Portal-Data-Sources-Prod
+DEV,ECA-Portal-Document-Dev,ECA-Portal-Document-Prod
+DEV,ECA-Portal-Phase-Dev,ECA-Portal-Phase-Prod
+DEV,ECA-Portal-Resource-Dev,ECA-Portal-Resource-Prod
+DEV,ECA-Portal-Security-Dev,ECA-Portal-Security-Prod

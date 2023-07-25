@@ -1,0 +1,58 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Python Script
+
+permissions:
+  contents: write
+  
+# Controls when the workflow will run
+on:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest #ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Unzip Portal Development Project
+        run: python main.py 99
+    
+      #- name: msappExtract
+      #  run: ./msappExtract.ps1
+      #  shell: pwsh
+       
+      #- name: Replace Development Values
+      #  run: python main.py 1 
+        
+      #- name: msappCompress
+      #  run: ./msappCompress.ps1
+      #  shell: pwsh
+        
+      #- name: Compress Production Values
+      #  run: python main.py 2 
+        
+      - name: Export Production Portal
+        uses: actions/upload-artifact@v2
+        with: 
+           path: Output/ECAPortalProd.zip
+      - name: Generate release tag
+        id: tag
+        run: |
+          echo "::set-output name=release_tag::EcaPortalProd_$(date +"%Y.%m.%d_%H-%M")"
+      - name: Release user firmware
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          files: Output/ECAPortalProd.zip
